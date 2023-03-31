@@ -15,7 +15,7 @@ public class ArrayList<T> implements List<T> {
 	public ArrayList() {
 		this(DEFAULT_CAPACITY);
 	}
-
+ 
 	@Override
 	public boolean add(T obj) {
 		if (size == array.length) {
@@ -37,6 +37,7 @@ public class ArrayList<T> implements List<T> {
 		if (size == array.length) {
 			reallocate();
 		}
+		System.arraycopy(array, index, array, index + 1, size - index);
 		array[index] = obj;
 		size++;
 	}
@@ -44,7 +45,7 @@ public class ArrayList<T> implements List<T> {
 	@Override
 	public T remove(int index) {
 		T removeRef = array[index];
-		int quantityElementsCopies = array.length - (index + 1);
+		int quantityElementsCopies = size - (index - 1);
 		System.arraycopy(array, index + 1, array, index, quantityElementsCopies);
 		size--;
 
