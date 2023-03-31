@@ -23,35 +23,43 @@ public class ArrayList<T> implements List<T> {
 		}
 		array[size] = obj;
 		size++;
+
 		return true;
 	}
 
 	private void reallocate() {
 		array = Arrays.copyOf(array, array.length * 2);
-
 	}
 
 	@Override
 	public void add(int index, T obj) {
-		// TODO Auto-generated method stub
 
+		if (size == array.length) {
+			reallocate();
+		}
+		array[index] = obj;
+		size++;
 	}
 
 	@Override
 	public T remove(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		T removeRef = array[index];
+		int quantityElementsCopies = array.length - (index + 1);
+		System.arraycopy(array, index + 1, array, index, quantityElementsCopies);
+		size--;
+
+		return removeRef;
 	}
 
 	@Override
 	public T get(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		T arrRef = array[index];
+		return arrRef;
 	}
 
 	@Override
 	public int size() {
-		
+
 		return size;
 	}
 
