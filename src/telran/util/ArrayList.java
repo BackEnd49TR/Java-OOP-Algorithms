@@ -15,7 +15,7 @@ public class ArrayList<T> implements List<T> {
 	public ArrayList() {
 		this(DEFAULT_CAPACITY);
 	}
- 
+
 	@Override
 	public boolean add(T obj) {
 		if (size == array.length) {
@@ -44,16 +44,27 @@ public class ArrayList<T> implements List<T> {
 
 	@Override
 	public T remove(int index) {
+
+//		this is OK
+
+//		T removeRef = array[index];
+//		int quantityElementsCopies = size - (index - 1);
+//		System.arraycopy(array, index + 1, array, index, quantityElementsCopies);
+//		size--;
+// ************* corrected YG********
+
 		T removeRef = array[index];
-		int quantityElementsCopies = size - (index - 1);
-		System.arraycopy(array, index + 1, array, index, quantityElementsCopies);
 		size--;
+		System.arraycopy(array, index + 1, array, index, size - index);
+
+//***********************************
 
 		return removeRef;
 	}
 
 	@Override
 	public T get(int index) {
+// array[index] => this is also reference
 		T arrRef = array[index];
 		return arrRef;
 	}
@@ -62,6 +73,42 @@ public class ArrayList<T> implements List<T> {
 	public int size() {
 
 		return size;
+	}
+
+	@Override
+	public boolean remove(T pattern) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public T[] toArray(T[] array) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int indexOf(T pattern) {
+		int res = -1;
+		int index = 0;
+		while (index < size && res == -1) {
+			if (isEqual(array[index], pattern)) {
+				res = index;
+			}
+			index++;
+		}
+		return res;
+	}
+
+	private boolean isEqual(T object, T pattern) {
+
+		return pattern == null ? object == pattern : pattern.equals(object);
+	}
+
+	@Override
+	public int lastIndexOf(T pattern) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

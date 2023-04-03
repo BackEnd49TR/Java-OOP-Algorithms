@@ -1,99 +1,95 @@
 package telran.util.test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
 
 //import java.util.ArrayList;
 //import telran.util.ArrayList;
 import telran.util.*;
 
 import org.junit.jupiter.api.Test;
+//import org.junit.vintage.engine.descriptor.RunnerTestDescriptor;
 
 class ArrayListTest {
+	List<Integer> list; // list telran.util
+	Integer[] numbers = { 10, -20, 7, 50, 100, 30 };
+
+	@BeforeEach
+	void setUp() { // method create list numbers arraylist
+		list = new ArrayList<>(1); // list = create empty list
+		for (int i = 0; i < numbers.length; i++) {
+			list.add(numbers[i]); // list contains reference to number
+
+		}
+
+	}
 
 	@Test
 	void testAdd() {
-		ArrayList<Integer> numbers = new ArrayList<>();
-		ArrayList<String> strings = new ArrayList<>();
-		numbers.add(5);
-		numbers.add(10);
-		strings.add("ABC");
-		assertEquals(2, numbers.size());
-		assertEquals(1, strings.size());
+
+		assertTrue(list.add(numbers[0]));
+		assertEquals(numbers.length + 1, list.size());
+
 	}
 
 	@Test
 	void testAddIndex() {
 
-		ArrayList<Integer> object = new ArrayList<>();
-
-		for (int i = 11; i <= 20; i++) {
-			object.add(i);
-		}
-		assertEquals(10, object.size());
-
-		object.add(0, 1);
-		assertEquals(11, object.size());
-
-		object.add(5, 2);
-		assertEquals(12, object.size());
-
-		object.add(10, 3);
-		assertEquals(13, object.size());
-
-		assertEquals(1, object.get(0));
-		assertEquals(11, object.get(1));
-
-		assertEquals(2, object.get(5));
-		assertEquals(15, object.get(6));
-
-		assertEquals(3, object.get(10));
-		assertEquals(19, object.get(11));
+		Integer[] expected0_500 = { 500, 10, -20, 7, 50, 100, 30 };
+		Integer[] expected0_500_3_700 = { 500, 10, -20, 700, 7, 50, 100, 30 };
+		Integer[] expected0_500_3_700_8_300 = { 500, 10, -20, 700, 7, 50, 100, 30, 300 };
+		list.add(0, 500);
+		runTest(expected0_500);
+		list.add(3, 700);
+		runTest(expected0_500_3_700);
+		list.add(8, 300);
+		runTest(expected0_500_3_700_8_300);
 
 	}
 
 	@Test
 	void testRemoveIndex() {
-		ArrayList<Integer> object = new ArrayList<>();
-		for (int i = 0; i < 10; i++) {
-			object.add(i);
-			
-		}
-		assertEquals(10,object.size());
+		Integer[] expectedNo10 = { -20, 7, 50, 100, 30 };
+		Integer[] expectedNo10_50 = { -20, 7, 100, 30 };
+		Integer[] expectedNo10_50_30 = { -20, 7, 100 };
+		assertEquals(10, list.remove(0));
+		runTest(expectedNo10);
+		assertEquals(50, list.remove(2));
+		runTest(expectedNo10_50);
+		assertEquals(30, list.remove(3));
+		runTest(expectedNo10_50_30);
+	}
+
+	@Test
+	void testGetIndex() {
+		assertEquals(10, list.get(0));
 		
-		object.remove(0);
-		object.remove(5);
-		object.remove(9);
-		assertEquals(1, object.get(0));
-		assertEquals(7, object.get(5));
-		assertEquals(9, object.get(7));
-		assertEquals(7,object.size());
+	}
+
+	@Test
+	void testIndexOf() {
+		list.add(3,10);
+		assertEquals(0,list.indexOf(10));
+		assertEquals(-1, list.indexOf(null));
+	}
+	@Test
+	private void runTest(Integer[] expected) {
+		int size = list.size();
+		Integer[] actual = new Integer[expected.length];
+		for (int i = 0; i < size; i++) {
+			actual[i] = list.get(i);
+		}
+		assertArrayEquals(expected, actual);
 
 	}
-// *******************  Test RemoveIdex corrected VR ***********	
-	@Test
-	void testRemove() {
-		ArrayList<Integer> numbers = new ArrayList<>();
-		for(int i=0; i<10; i++) {
-			numbers.add(i);
-		}
-		printArrayList(numbers);
-		int removed1 = numbers.remove(9);
-		printArrayList(numbers);
-		int removed2 = numbers.remove(5);
-		printArrayList(numbers);
-		int removed3 = numbers.remove(0);
-		printArrayList(numbers);
-		assertEquals(7, numbers.size());
-		assertEquals(9, removed1);
-		assertEquals(5, removed2);
-		assertEquals(0, removed3);
-	}
-	void printArrayList(ArrayList<Integer> arr) {
-		for(int i=0; i<arr.size(); i++) {
-			System.out.print(arr.get(i));
-		}
-		System.out.println("");
-	}
+
+//	void printArrayList(ArrayList<Integer> arr) {
+//		for (int i = 0; i < arr.size(); i++) {
+//			System.out.print(arr.get(i));
+//		}
+//		System.out.println("");
+//	}
 //*****************************************************************
 
 }
