@@ -64,15 +64,54 @@ class ArrayListTest {
 	@Test
 	void testGetIndex() {
 		assertEquals(10, list.get(0));
-		
+
 	}
 
 	@Test
 	void testIndexOf() {
-		list.add(3,10);
-		assertEquals(0,list.indexOf(10));
+		list.add(3, 10);
+		assertEquals(0, list.indexOf(10));
 		assertEquals(-1, list.indexOf(null));
+
 	}
+
+	@Test
+	void testLastIndexOf() {
+
+		list.add(4, 7);
+		assertEquals(-1, list.lastIndexOf(null));
+		assertEquals(4, list.lastIndexOf(7));
+		list.add(7, 7);
+		assertEquals(7, list.lastIndexOf(7));
+
+	}
+
+	@Test
+	void testRemovePattern() {
+
+		Integer[] expectedNo10 = { -20, 7, 50, 100, 30 };
+		Integer[] expectedNo10_50 = { -20, 7, 100, 30 };
+		Integer[] expectedNo10_50_30 = { -20, 7, 100 };
+
+		assertTrue(list.remove(numbers[0]));
+		runTest(expectedNo10);
+
+		assertTrue(list.remove(numbers[3]));
+		runTest(expectedNo10_50);
+
+		assertTrue(list.remove(numbers[5]));
+		runTest(expectedNo10_50_30);
+
+		// *********************
+//		for (int i = 0; i < list.size(); i++) {
+//			System.out.printf(list.get(i) + " ");
+//		}
+//		System.out.println("");
+//		System.out.println(list.size());
+
+		// ****************************
+	}
+
 	@Test
 	private void runTest(Integer[] expected) {
 		int size = list.size();
@@ -81,15 +120,6 @@ class ArrayListTest {
 			actual[i] = list.get(i);
 		}
 		assertArrayEquals(expected, actual);
-
 	}
-
-//	void printArrayList(ArrayList<Integer> arr) {
-//		for (int i = 0; i < arr.size(); i++) {
-//			System.out.print(arr.get(i));
-//		}
-//		System.out.println("");
-//	}
-//*****************************************************************
 
 }

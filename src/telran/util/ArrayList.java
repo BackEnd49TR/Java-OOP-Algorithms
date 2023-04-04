@@ -77,13 +77,21 @@ public class ArrayList<T> implements List<T> {
 
 	@Override
 	public boolean remove(T pattern) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean res = false;
+		int index = 0;
+		for (; index < array.length; index++) {
+			if (isEqual(array[index], pattern)) {
+				System.arraycopy(array, index + 1, array, index, size - index);
+				size--;
+				res = true;
+			}
+		}
+
+		return res;
 	}
 
 	@Override
 	public T[] toArray(T[] array) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -100,15 +108,22 @@ public class ArrayList<T> implements List<T> {
 		return res;
 	}
 
+	@Override
+	public int lastIndexOf(T pattern) {
+		int res = -1;
+		int index = size - 1;
+		while (index > 0 && res == -1) {
+			if (isEqual(array[index], pattern)) {
+				res = index;
+			}
+			index--;
+		}
+		return res;
+	}
+
 	private boolean isEqual(T object, T pattern) {
 
 		return pattern == null ? object == pattern : pattern.equals(object);
-	}
-
-	@Override
-	public int lastIndexOf(T pattern) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }

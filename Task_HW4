@@ -1,0 +1,13 @@
+1.	Write tests for the following methods
+1.1.	public boolean remove(T pattern) 
+1.1.1.	Takes reference to some pattern 
+1.1.2.	Removes a reference to an object equaled to the given pattern
+1.1.3.	Returns true if the reference has been removed otherwise false (object not found)
+1.2.	public boolean lastIndexOf(T pattern)
+1.2.1.	Takes reference to some pattern 
+1.2.2.	Searches for a last reference to an object equaled to the given pattern
+			 (generally there may be several such references)
+1.2.3.	Returns index value of the found last reference or –1 if not found
+1.3.	public T[] toArray(T[] array)
+1.3.1.	Method implementation should match the description of this method in javadoc
+2.	Write implementation of the methods described in 1

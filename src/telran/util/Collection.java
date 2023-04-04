@@ -6,6 +6,6 @@ public interface Collection<T> {
 	int size();
 
 	boolean remove(T pattern);
-	T[] toArray(T[] array);
+	 T[] toArray(T[] array);
 	
 }
